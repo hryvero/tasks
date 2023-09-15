@@ -8,19 +8,32 @@ const inputDataPath = "./condition.json";
 const condition = fs.readFileSync(inputDataPath, "utf8");
 const parsedCondition = JSON.parse(condition);
 
-console.log(parsedCondition.condition);
+// for (const i of parsedCondition.condition.exclude) {
+//   for (const key in i) {
+//     // console.log(key);
+//     if (item[key] === i[key]) {
+//       return false; // Виключаємо елемент, якщо він відповідає умові
+//     }
+//     return true;
+//   }
+// }
+// console.log();
+
+// console.log();
 
 function sortByCondition(parsedData, parsedCondition) {
   const filteredData = parsedData.data.filter((item) => {
-    for (const excludeCondition of parsedCondition.condition.exclude) {
-      const keys = Object.keys(excludeCondition);
-      for (const key of keys) {
-        if (item[key] === excludeCondition[key]) {
-          return false; // Виключаємо елемент, якщо він відповідає умові
+    if (parsedCondition.condition.hasOwnProperty("exclude")) {
+      for (const i of parsedCondition.condition.exclude) {
+        for (const key in i) {
+          // console.log(key);
+          if (item[key] === i[key]) {
+            return false; // Виключаємо елемент, якщо він відповідає умові
+          }
         }
       }
+      return item;
     }
-    return true; // Залишаємо елемент, якщо не відповідає жодній умові
   });
 
   if (
@@ -28,7 +41,7 @@ function sortByCondition(parsedData, parsedCondition) {
     parsedCondition.condition.sortBy.length > 0
   ) {
     filteredData.sort((a, b) => {
-      const field = condition.sortBy[0];
+      const field = parsedCondition.condition.sortBy[0];
       return a[field] - b[field]; // Сортування за полем "rating"
     });
   }

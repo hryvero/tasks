@@ -26,7 +26,7 @@
 "email":”john2@mail.com”.
 {"result": [{"name": "Jane", "email": "jane@mail.com"}]}
 Іншим варіантом правила може бути правило побудоване за принципом “ТА”, наприклад:
-{"exclude": [{"name": John, "email":”john2@mail.com”}]}}
+{"exclude": [{"name": John, "email":”john2@mail.com”}]}
 Тобто потрібно виключити користувачів які мають "name":”John” ТА
 "email":”john2@mail.com”.
 {"result": [{"name": "John", "email": "john1@mail.com"},
