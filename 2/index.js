@@ -25,7 +25,7 @@ function sortByCondition(parsedData, parsedCondition) {
       for (const i of parsedCondition.condition.include) {
         for (const key in i) {
           if (item[key] === i[key]) {
-            return item; // Виключаємо елемент, якщо він відповідає умові
+            return item;
           }
         }
       }
@@ -33,12 +33,12 @@ function sortByCondition(parsedData, parsedCondition) {
     }
   });
 
+  //Sorting by email
   if (
-    parsedCondition.condition.sortBy &&
+    parsedCondition.condition.sortBy == "email" &&
     parsedCondition.condition.sortBy.length > 0
   ) {
     for (const key of filteredData) {
-      console.log(key);
       if (key.email.toLowerCase().includes(key.name.toLowerCase())) {
         return key;
       }
@@ -50,7 +50,6 @@ function sortByCondition(parsedData, parsedCondition) {
 
 const result = sortByCondition(parsedData, parsedCondition);
 
-console.log(result);
 // Вихідні дані
 
 const outputData = { result: result };
